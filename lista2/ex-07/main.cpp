@@ -28,6 +28,7 @@ int main(void){
 
     /* ALGORIMO PRINCIPAL */
     do{
+        dia = 0; mes = 0; ano = 0;
         digita_nascimento();
 
         if(data_invalida(&tipo_erro)){
@@ -55,15 +56,19 @@ void digita_nascimento(){
 
 /* DIA E MÊS FORA DE SEUS INTERVALOS */
 bool data_invalida(string *tipo_erro){
-    if(dia < MIND || dia > MAXD){
+    bool dia_fora = dia < MIND || dia > MAXD;
+    bool mes_fora = mes < MINM || mes > MAXM;
+    bool ano_fora = ano > A || ano < 0;
+
+    if(dia_fora){
         *tipo_erro = "Dia inválido.";
         return true;
     }
-    else if(mes < MINM || mes > MAXM){
+    else if(mes_fora){
         *tipo_erro = "Mês inválido.";
         return true;
     }
-    else if(ano > A || ano < 0){
+    else if(ano_fora){
         *tipo_erro = "Ano inválido.";
         return true;
     }
@@ -75,11 +80,13 @@ bool data_invalida(string *tipo_erro){
 /* RETORNA IDADE NA DATA */
 int calcula_idade(){
     int idade = A - ano;
+    bool passou_dia = mes == M && dia >= D;
+    bool passou_mes = mes > M;
 
-    if(mes == M && dia >= D){
+    if(passou_dia){
         idade++;
     }
-    else if(mes > M){
+    else if(passou_mes){
         idade++;
     }
 

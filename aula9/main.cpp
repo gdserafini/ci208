@@ -12,19 +12,19 @@ using namespace std;
 float calcula_raiz(float a, float x);
 void digita_a(float &a);
 void digita_x(float &x);
-bool parada(float y, float i, float erro);
 void digita_erro(float &erro);
 
 int main(void){
     float x, y, a, erro;
-    int i = 1;
+    int i = 0;
+    bool parada = (-y*(i+1) - y*i) <= erro; //CONDIÇÃO DE PARADA
 
     /* ALGORITMO PRINCIPAL */
     digita_erro(erro);
     digita_a(a);
     x = a/2;
 
-    while(parada(y, i, erro)){
+    while(parada){
         y = calcula_raiz(a, x);
         cout << "\nY: " << y << "\n" << endl;
         i++;
@@ -33,26 +33,19 @@ int main(void){
     return 0;
 }
 
+/* OUT */
 float calcula_raiz(float a, float x){
-    return (x + (a/x))/2;
+    return ((x + (a/x))/2);
 }
 
+/* IN */
 void digita_a(float &a){
     cout << "\nDigite o valor de A: ";
     cin >> a;
-}
-
-/* CONDIÇÃO -> ERRO */
-bool parada(float y, float i, float erro){
-    if((-y*(i+1) - y*i) <= erro){
-        return true;
-    }
-    else{
-        return false;
-    }
 }
 
 void digita_erro(float &erro){
     cout << "\nDigite o valor de ERRO (0-1): ";
     cin >> erro;
 }
+/**/
